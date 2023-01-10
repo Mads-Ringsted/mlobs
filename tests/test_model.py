@@ -5,8 +5,8 @@ from src.models.model import MyAwesomeModel
 
 @pytest.mark.parametrize("batch_size", [30, 64, 100])
 def test_model(batch_size):
-    trainset = torch.load(_PATH_DATA + '/processed/trainset.pt')
-    testset = torch.load(_PATH_DATA + '/processed/testset.pt')
+    trainset = torch.load('data' + '/processed/trainset.pt')
+    testset = torch.load('data' + '/processed/testset.pt')
 
     trainloader = torch.utils.data.DataLoader(trainset, batch_size=batch_size, shuffle=True)
     images, labels = next(iter(trainloader))
