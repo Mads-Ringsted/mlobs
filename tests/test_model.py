@@ -1,8 +1,9 @@
 import pytest
-from tests import _PATH_DATA
+#from tests import _PATH_DATA
 import torch
 from src.models.model import MyAwesomeModel
 
+_PATH_DATA = "../data"
 @pytest.mark.parametrize("batch_size", [30, 64, 100])
 def test_model(batch_size):
     trainset = torch.load(_PATH_DATA + '/processed/trainset.pt')

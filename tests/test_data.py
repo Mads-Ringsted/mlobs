@@ -1,8 +1,9 @@
 import pytest
-from tests import _PATH_DATA
+#from tests import _PATH_DATA
 import torch
 import os
 
+_PATH_DATA = "../data"
 @pytest.mark.skipif(not os.path.exists(_PATH_DATA + '/processed/trainset.pt'), reason="Data files not found")
 @pytest.mark.skipif(not os.path.exists(_PATH_DATA + '/processed/testset.pt'), reason="Data files not found")
 def test_data():
