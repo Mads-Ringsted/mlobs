@@ -35,12 +35,12 @@ def evaluate(model_checkpoint):
     target = torch.cat(target, dim=0)
     preds = torch.cat(preds, dim=0)
     report = classification_report(target, preds)
-    with open("reports/classification_report.txt", 'w') as outfile:
+    with open("classification_report.txt", 'w') as outfile:
         outfile.write(report)
     confmat = confusion_matrix(target, preds)
     disp = ConfusionMatrixDisplay(confusion_matrix = confmat, display_labels=range(10))
     disp.plot()
-    plt.savefig('reports/figures/confusion_matrix.png')
+    plt.savefig('confusion_matrix.png')
 
 
 
