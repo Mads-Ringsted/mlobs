@@ -1,7 +1,8 @@
 import argparse
 import sys
-import torch
+
 import click
+import torch
 from model import MyAwesomeModel
 from torch import nn, optim
 

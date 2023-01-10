@@ -1,12 +1,12 @@
 import argparse
 import sys
+
+import click
 import matplotlib.pyplot as plt
 import torch
-import click
+from torch import nn, optim
 
 from src.models.model import MyAwesomeModel
-
-from torch import nn, optim
 
 
 @click.command()
