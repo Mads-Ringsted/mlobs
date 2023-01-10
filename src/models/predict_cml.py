@@ -5,6 +5,8 @@ import click
 import torch
 from model import MyAwesomeModel
 from torch import nn, optim
+from sklearn.metrics import classification_report, confusion_matrix, ConfusionMatrixDisplay
+import matplotlib.pyplot as plt
 
 
 
@@ -22,16 +24,24 @@ def evaluate(model_checkpoint):
         model.eval()
         test_loss = 0
         accuracy = 0
+        preds, target = [], []
         for images, labels in testloader:
             log_ps = model(images)
-
-            top_p, top_class = log_ps.topk(1, dim=1)
-
-            equals = top_class == labels.view(*top_class.shape)
-            accuracy += torch.mean(equals.type(torch.FloatTensor))
-        accuracy = accuracy/len(testloader)
-        print(f"Acuracy: {accuracy.item()*100}%")
+            probs = model(images)
+            preds.append(probs.argmax(dim=-1))
+            target.append(labels.detach())
         model.train()
+    
+    target = torch.cat(target, dim=0)
+    preds = torch.cat(preds, dim=0)
+    report = classification_report(target, preds)
+    with open("reports/classification_report.txt", 'w') as outfile:
+        outfile.write(report)
+    confmat = confusion_matrix(target, preds)
+    disp = ConfusionMatrixDisplay(confusion_matrix = confmat, display_labels=range(10))
+    disp.plot()
+    plt.savefig('reports/figures/confusion_matrix.png')
+
 
 
 if __name__ == "__main__":
